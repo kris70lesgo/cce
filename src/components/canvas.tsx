@@ -27,7 +27,7 @@ export default function DashboardPage() {
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/preferences",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-200" />
       ),
