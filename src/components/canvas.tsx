@@ -67,10 +67,10 @@ export default function DashboardPage() {
       />
 
       {/* Foreground Layout */}
-      <div className="relative z-10 flex h-screen">
+      <div className="relative z-10 flex flex-col md:flex-row h-screen">
         {/* Sidebar */}
         <Sidebar open={open} setOpen={setOpen}>
-          <SidebarBody className="justify-between gap-10 bg-[#101624] border-r border-neutral-800">
+          <SidebarBody className="justify-between gap-10 bg-[#101624] border-r border-neutral-800 min-h-[64px] md:min-h-0">
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
               {open ? <Logo /> : <LogoIcon />}
               <div className="mt-8 flex flex-col gap-2">
@@ -101,17 +101,17 @@ export default function DashboardPage() {
         </Sidebar>
 
         {/* Main Dashboard Content */}
-        <div className="flex flex-1 flex-col justify-center items-center p-6 overflow-y-auto">
+        <div className="flex flex-1 flex-col justify-center items-center p-2 sm:p-4 md:p-6 overflow-y-auto w-full">
           {/* Centered Content */}
-          <div className="flex flex-col items-center justify-center flex-1 max-w-4xl w-full">
+          <div className="flex flex-col items-center justify-center flex-1 max-w-full md:max-w-4xl w-full">
             {/* Main Greeting */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center mb-16"
+              className="text-center mb-8 md:mb-16"
             >
-              <h1 className="text-5xl md:text-6xl font-normal bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent leading-tight">
                 Hello, user
               </h1>
             </motion.div>
@@ -122,28 +122,29 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-4xl mt-auto" // Increased max width
+            className="w-full max-w-full md:max-w-4xl mt-auto"
           >
             {/* Search Input */}
             <div className="relative mb-4">
               {/* Removed the glowing gradient background */}
-              <div className="relative bg-[#111827] border border-neutral-700 rounded-2xl p-4 backdrop-blur-sm">
-                <div className="flex items-start space-x-2">
-                  
+              <div className="relative bg-[#111827] border border-neutral-700 rounded-2xl p-2 sm:p-4 backdrop-blur-sm">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-start space-y-2 sm:space-y-0 sm:space-x-2">
                   <textarea
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Ask anything"
-                    className="flex-1 bg-transparent text-white placeholder-neutral-400 focus:outline-none text-base resize-none pt-1"
+                    className="flex-1 bg-transparent text-white placeholder-neutral-400 focus:outline-none text-base resize-none pt-1 min-h-[3rem] sm:min-h-[4.5rem]"
                     style={{
                       fontFamily: "Inter, Arial, sans-serif",
                       minWidth: "0",
-                      height: "4.5rem", // or your preferred height
-                      lineHeight: "1.5rem", // normal line height
+                      height: "4.5rem",
+                      lineHeight: "1.5rem",
                     }}
                   />
                   {/* Up Arrow Button */}
-                  <SendButton />
+                  <div className="flex justify-end sm:items-end">
+                    <SendButton />
+                  </div>
                 </div>
               </div>
             </div>

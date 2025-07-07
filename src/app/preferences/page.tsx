@@ -236,7 +236,7 @@ const PreferenceSelection: React.FC<PreferenceSelectionProps> = ({ categories })
       <div className="flex items-center gap-2 pt-4">
         <Checkbox checked={showCustom} onCheckedChange={setShowCustom} />
         <span
-          className="text-lg font-semibold cursor-pointer select-none"
+          className="text-lg  cursor-pointer select-none"
           onClick={() => setShowCustom((v) => !v)}
         >
           Custom preferences
