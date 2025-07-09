@@ -58,38 +58,6 @@ const errorHandler = (err: Error, req: Request, res: Response, next: NextFunctio
   });
 };
 
-// Utility function to generate mock taste graph
-const generateMockTasteGraph = (seed: string): TasteGraph => {
-  const mockData: { [key: string]: TasteGraph } = {
-    jazz: {
-      primary: ['Blue Note Records', 'Bebop', 'Miles Davis'],
-      adjacent: ['Vinyl Records', 'Coffee Culture', 'Art Deco'],
-      emerging: ['Neo-Soul', 'Jazz Fusion', 'Lofi Hip-Hop']
-    },
-    anime: {
-      primary: ['Studio Ghibli', 'Manga', 'Japanese Culture'],
-      adjacent: ['Cosplay', 'J-Pop', 'Ramen Culture'],
-      emerging: ['Virtual YouTubers', 'Anime Gaming', 'Japanese Street Fashion']
-    },
-    'k-drama': {
-      primary: ['Korean Cinema', 'K-Pop', 'Korean Beauty'],
-      adjacent: ['Korean BBQ', 'Hanbok Fashion', 'Korean Language'],
-      emerging: ['K-Beauty Trends', 'Korean Webtoons', 'Korean Indie Music']
-    },
-    'eco-fashion': {
-      primary: ['Sustainable Fashion', 'Organic Materials', 'Ethical Brands'],
-      adjacent: ['Zero Waste Living', 'Thrift Shopping', 'Minimalism'],
-      emerging: ['Upcycled Fashion', 'Bio-Materials', 'Circular Economy']
-    }
-  };
-
-  return mockData[seed.toLowerCase()] || {
-    primary: [`${seed} Culture`, `${seed} Community`, `${seed} Lifestyle`],
-    adjacent: [`Alternative ${seed}`, `${seed} Art`, `${seed} Music`],
-    emerging: [`Future ${seed}`, `${seed} Technology`, `${seed} Innovation`]
-  };
-};
-
 // Route 1: POST /api/taste-profile
 app.post('/api/taste-profile', async (req: Request<{}, {}, TasteProfileRequest>, res: Response) => {
   try {
@@ -102,49 +70,48 @@ app.post('/api/taste-profile', async (req: Request<{}, {}, TasteProfileRequest>,
       });
     }
 
-    let tasteGraph: TasteGraph;
-
-    // Try to call Qloo API
-    if (process.env.QLOO_API_KEY && process.env.QLOO_API_URL) {
-      try {
-        console.log(`Calling Qloo API for seed: ${seed}`);
-        
-        const qlooResponse = await axios.post<QlooResponse>(
-          `${process.env.QLOO_API_URL}/taste-profile`,
-          { seed },
-          {
-            headers: {
-              'Authorization': `Bearer ${process.env.QLOO_API_KEY}`,
-              'Content-Type': 'application/json'
-            },
-            timeout: 10000 // 10 second timeout
-          }
-        );
-
-        // Extract taste graph from Qloo response
-        const insights = qlooResponse.data.insights || qlooResponse.data;
-        tasteGraph = {
-          primary: insights.primary || [],
-          adjacent: insights.adjacent || [],
-          emerging: insights.emerging || []
-        };
-
-        console.log('Qloo API call successful');
-      } catch (qlooError) {
-        console.warn('Qloo API failed, using mock data:', (qlooError as AxiosError).message);
-        tasteGraph = generateMockTasteGraph(seed);
-      }
-    } else {
-      console.warn('Qloo API credentials not found, using mock data');
-      tasteGraph = generateMockTasteGraph(seed);
+    if (!process.env.QLOO_API_KEY || !process.env.QLOO_API_URL) {
+      return res.status(500).json({
+        error: 'Qloo API credentials not found',
+        message: 'QLOO_API_KEY and QLOO_API_URL must be set in environment variables'
+      });
     }
 
-    res.json({
-      seed,
-      tasteGraph,
-      source: process.env.QLOO_API_KEY ? 'qloo' : 'mock'
-    });
+    try {
+      console.log(`Calling Qloo API for seed: ${seed}`);
+      const qlooResponse = await axios.post<QlooResponse>(
+        `${process.env.QLOO_API_URL}/taste-profile`,
+        { seed },
+        {
+          headers: {
+            'Authorization': `Bearer ${process.env.QLOO_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: 10000 // 10 second timeout
+        }
+      );
 
+      // Extract taste graph from Qloo response
+      const insights = qlooResponse.data.insights || qlooResponse.data;
+      const tasteGraph: TasteGraph = {
+        primary: insights.primary || [],
+        adjacent: insights.adjacent || [],
+        emerging: insights.emerging || []
+      };
+
+      console.log('Qloo API call successful');
+      res.json({
+        seed,
+        tasteGraph,
+        source: 'qloo'
+      });
+    } catch (qlooError) {
+      console.error('Qloo API failed:', (qlooError as AxiosError).message);
+      res.status(502).json({
+        error: 'Failed to fetch data from Qloo API',
+        message: (qlooError as AxiosError).message
+      });
+    }
   } catch (error) {
     console.error('Error in /api/taste-profile:', error);
     res.status(500).json({
@@ -322,7 +289,7 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`🚀 CCE Backend Server running on port ${PORT}`);
   console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔑 Qloo API: ${process.env.QLOO_API_KEY ? 'Configured' : 'Not configured (using mock data)'}`);
+  console.log(`🔑 Qloo API: ${process.env.QLOO_API_KEY && process.env.QLOO_API_URL ? 'Configured' : 'Not configured (API calls will fail)'}`);
   console.log(`🤖 Gemini API: ${process.env.GEMINI_API_KEY ? 'Configured' : 'Not configured (using fallback)'}`);
   console.log(`📊 Health check: http://localhost:${PORT}/health`);
 });
