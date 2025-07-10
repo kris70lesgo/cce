@@ -162,7 +162,7 @@ export default function DashboardPage() {
     },
   ];
 
-  // Handle sending message
+  // Handle sending message - Updated to use your new API pattern
   const handleSend = async () => {
     if (!searchQuery.trim() || isLoading) return;
 
@@ -180,30 +180,22 @@ export default function DashboardPage() {
     setIsLoading(true);
 
     try {
-      // JSON structure for API call
-      const requestBody = {
-        message: userMessage,
-        timestamp: new Date().toISOString(),
-        userId: "user-123" // You can add user identification
-      };
-
-      const response = await fetch('/api/sendMessage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
+      // Updated API call using your provided pattern
+      const res = await fetch("/api/route", {
+        method: "POST",
+        body: JSON.stringify({ text: userMessage }),
+        headers: { "Content-Type": "application/json" }
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
 
-      const data = await response.json();
+      const data = await res.json();
       
-      // Add bot response to chat
+      // Add bot response to chat using refinedMessage from your API
       const botMessage = {
-        message: data.response || "I received your message!",
+        message: data.refinedMessage || "I received your message!",
         isUser: false,
         timestamp: new Date().toISOString()
       };
