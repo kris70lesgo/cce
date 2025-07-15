@@ -112,7 +112,7 @@ export default function Home() {
 
         {/* CTA */}
         <Link
-          href="/signup"
+          href="/ch"
           className="mt-8 inline-block rounded-lg bg-gray-800 px-6 py-3 font-semibold text-white shadow-md hover:bg-gray-900"
         >
           Get started for free
