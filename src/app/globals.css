@@ -119,3 +119,6 @@
     @apply bg-background text-foreground;
   }
 }
+html, body {
+  overflow-x: hidden;   /* no page scrollbars */
+}
