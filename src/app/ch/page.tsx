@@ -49,7 +49,7 @@ export default function ChatPage() {
         <h1 className="text-2xl font-bold mb-4">Gemini Chat</h1>
 
         {/* chat messages take the remaining height */}
-        <div className="flex-1 overflow-y-auto px-4 space-y-4">
+        <div className="flex-1 px-4 space-y-4">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div
