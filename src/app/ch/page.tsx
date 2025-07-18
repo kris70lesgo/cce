@@ -17,7 +17,7 @@ export default function ChatPage() {
     setInput('');
     setLoading(true);
 
-    const res = await fetch('/api/chat', {
+    const res = await fetch('/api/taste', {
       method: 'POST',
       body: JSON.stringify({ messages: [...messages, userMsg] }),
       headers: { 'Content-Type': 'application/json' },
