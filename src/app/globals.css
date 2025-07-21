@@ -122,3 +122,21 @@
 html, body {
   overflow-x: hidden;   /* no page scrollbars */
 }
+/* style scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a; /* matches slate-900 */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #475569; /* slate-600 */
+  border-radius: 6px;
+  border: 2px solid #0f172a; /* match track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b; /* slate-500 on hover */
+}

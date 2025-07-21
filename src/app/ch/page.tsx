@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Send } from 'lucide-react';
 import Particles from '@/components/Particles';   // adjust path if needed
 
+
 type Message = { role: 'user' | 'assistant'; content: string };
 
 export default function ChatPage() {
@@ -45,11 +46,11 @@ export default function ChatPage() {
       </div>
 
       {/* chat UI on top */}
-      <div className="relative z-10 max-w-2xl mx-auto p-4 flex flex-col h-screen">
+      <div className="relative z-10 max-w-2xl mx-auto flex flex-col h-screen">
         <h1 className="text-2xl font-bold mb-4">Gemini Chat</h1>
 
         {/* chat messages take the remaining height */}
-        <div className="flex-1 px-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-4 space-y-4 pb-4">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div
