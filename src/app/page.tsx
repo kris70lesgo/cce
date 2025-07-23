@@ -1,5 +1,5 @@
 'use client';
-
+import { GitHubStarsButton } from '@/components/animate-ui/buttons/github-stars';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
@@ -22,37 +22,45 @@ export default function Home() {
 
           <ul className="flex items-center gap-6 text-sm text-[#4B5563]">
             {/* Features dropdown */}
-            <li className="relative">
-              <button
-                onClick={() =>
-                  setDropdown(dropdown === 'features' ? null : 'features')
-                }
-                className="flex items-center gap-1 hover:text-[#111827]"
-              >
-                Features <span className="text-xs">v</span>
+            <li className="relative group">
+              <button className="flex items-center gap-1 hover:text-[#111827]">
+                Features 
               </button>
-              {dropdown === 'features' && (
-                <div className="absolute left-0 top-8 w-48 rounded-md bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black/5">
-                  {/* menu items */}
-                </div>
-              )}
+              <div className="absolute left-0 top-8 w-48 rounded-md bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200">
+                <ul className="py-2">
+                  <li>
+                    <Link href="/features/ai" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
+                      AI Tools
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/features/integrations" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
+                      Integrations
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </li>
 
             {/* Solutions dropdown */}
-            <li className="relative">
-              <button
-                onClick={() =>
-                  setDropdown(dropdown === 'solutions' ? null : 'solutions')
-                }
-                className="flex items-center gap-1 hover:text-[#111827]"
-              >
-                Solutions <span className="text-xs">v</span>
+            <li className="relative group">
+              <button className="flex items-center gap-1 hover:text-[#111827]">
+                Solutions 
               </button>
-              {dropdown === 'solutions' && (
-                <div className="absolute left-0 top-8 w-48 rounded-md bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black/5">
-                  {/* menu items */}
-                </div>
-              )}
+              <div className="absolute left-0 top-8 w-48 rounded-md bg-white dark:bg-neutral-800 shadow-lg ring-1 ring-black/5 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200">
+                <ul className="py-2">
+                  <li>
+                    <Link href="/solutions/enterprise" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
+                      Enterprise
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/solutions/startups" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-700">
+                      Startups
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </li>
 
             <li>
@@ -69,9 +77,9 @@ export default function Home() {
 
             <li>
               <Link
-                href="/signup"
+                href="/ch"
                 className="rounded-md bg-black text-white px-4 py-2 text-sm font-semibold
-                           hover:bg-gray-900 hover:scale-105 transition-all duration-200"
+                          hover:bg-gray-900 hover:scale-105 transition-all duration-200"
               >
                 Get Started for Free
               </Link>
@@ -79,6 +87,7 @@ export default function Home() {
           </ul>
         </nav>
       </header>
+
 
       {/* ===== Centered Hero ===== */}
       <main className="flex flex-col items-center bg-white px-6 pt-24 pb-12 text-center">
@@ -111,12 +120,15 @@ export default function Home() {
         </p>
 
         {/* CTA */}
-        <Link
-          href="/ch"
-          className="mt-8 inline-block rounded-lg bg-gray-800 px-6 py-3 font-semibold text-white shadow-md hover:bg-gray-900"
-        >
-          Get started for free
-        </Link>
+        <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/ch"
+            className="rounded-lg bg-gray-800 px-6 py-3 font-semibold text-white shadow-md hover:bg-gray-900"
+          >
+            Get started for free
+          </Link>
+          <GitHubStarsButton username="kris70lesgo" repo="https://github.com/kris70lesgo/cce" />
+        </div>
 
         <p className="mt-3 text-sm text-[#9CA3AF]">
           7 day free trial. No credit card required.
@@ -190,8 +202,9 @@ export default function Home() {
       </section>
       {/* ===== Footer ===== */}
       <footer className="w-full max-w-6xl mx-auto mt-20 mb-8 text-center text-sm text-gray-500">
+        <hr className="mb-4 border-gray-300" />
         <p>
-          made by{' '}
+          Built with <span className="text-red-500" aria-label="love">♥</span> by{" "}
           <a
             href="https://github.com/kris70lesgo"
             target="_blank"
@@ -199,9 +212,9 @@ export default function Home() {
             className="font-semibold text-indigo-600 hover:underline"
           >
             kris70lesgo
-          </a>
+          </a>{" "}
+          · © 2025 tastemate. All rights reserved.
         </p>
-        <p className="mt-1">copyright &copy; 2025</p>
       </footer>
       </main>
     </>

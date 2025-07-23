@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Send } from 'lucide-react';
 import Particles from '@/components/Particles';   // adjust path if needed
+import ReactMarkdown from 'react-markdown';
 
 
 type Message = { role: 'user' | 'assistant'; content: string };
@@ -60,7 +61,11 @@ export default function ChatPage() {
                     : 'bg-gray-700 text-white rounded-bl-none'
                 }`}
               >
-                {msg.content}
+                {msg.role === 'assistant' ? (
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    ) : (
+                      msg.content
+                    )}
               </div>
             </div>
           ))}
