@@ -17,7 +17,7 @@ export default function Component() {
               duration: 3,
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
-              repeatType: "restart",
+              repeatType: "loop",
             }}
           />
         </div>
@@ -35,7 +35,7 @@ export default function Component() {
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
               times: [0, 0.3, 1],
-              repeatType: "restart",
+              repeatType: "loop",
             }}
           >
             <Upload className="w-6 h-6 text-red-500" />
@@ -61,7 +61,7 @@ export default function Component() {
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
               times: [0, 0.6, 1],
-              repeatType: "restart",
+              repeatType: "loop",
             }}
           >
             <Zap className="w-6 h-6 text-red-500" />
