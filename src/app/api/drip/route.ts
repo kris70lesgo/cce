@@ -181,7 +181,7 @@ export async function POST(req: NextRequest) {
     let finalText = '';
 
     if (qlooItems.length) {
-      finalText = await polish(prompt, qlooItems, intent.location || '', budget);
+      finalText = await polish(prompt, qlooItems, intent?.location || '', budget);
     } else {
       const fallback = `
 User asked: "${prompt}"
