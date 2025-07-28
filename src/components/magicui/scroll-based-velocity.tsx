@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 
-import { cn } from "/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface VelocityScrollProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultVelocity?: number;
