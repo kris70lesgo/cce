@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 Cultura: The AI Taste & Travel Assistant
 
-## Getting Started
+> *Your Vibe. Your Guide.*
 
-First, run the development server:
+Cultura is an AI-powered web app that understands your personal **taste** in music, movies, places, and more — and gives you curated recommendations.  
+Whether you're planning a trip or looking for something new to explore, Cultura blends the power of **Qloo’s Taste AI** and **Gemini Flash 2.5** to help you discover things you’ll actually love.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🎧 Taste Chat
+- Ask natural questions like:  
+  _“I’m going to Italy and love Wes Anderson films — where should I go?”_
+- Cultura extracts your preferences using Gemini + Qloo, and recommends:
+  - Destinations
+  - Local experiences
+  - Music, films, and cultural picks tailored to your vibe
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🌍 Trip Planner
+- Fill out a quick form (location, budget, days)
+- Get a full travel itinerary:
+  - Flights, hotels, visa tips
+  - Daily activity breakdowns
+- Chat to modify your trip:  
+  _“I want to spend Day 3 in Shibuya instead”_ → updated instantly
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧠 How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Gemini Flash 2.5** interprets natural user input and extracts key tags, entities, and locations
+- **Qloo API** is used to infer cultural tastes and provide domain-specific recommendations
+- All results are processed and served via a simple **Next.js + TypeScript** backend
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧰 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Frontend**: Next.js 14 (App Router), TailwindCSS, TypeScript, React
+- **Backend**: API Routes (`/api/taste`, `/api/trip`, `/api/chat`)
+- **AI**: Gemini Flash 2.5 for language understanding  
+- **Taste Engine**: Qloo Hackathon API for recommendation logic
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+
+
